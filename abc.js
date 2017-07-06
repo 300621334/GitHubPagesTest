@@ -1,4 +1,4 @@
-﻿//Shafiq-Ur-Rehman #300621334
+//Shafiq-Ur-Rehman #300621334
 var filePath = "abc.txt";
 var urlArray = {};//an object. Never used!!
 var i = 0;
@@ -101,18 +101,29 @@ function backBtn() {
 //https://zipso.net/a-simple-touchscreen-sketchpad-using-javascript-and-html5/
 // Variables for referencing the canvas and 2dcanvas context
 var canvas, ctx;
-
+var rgb;
 // Variables to keep track of the mouse position and left-button status 
 var mouseX, mouseY, mouseDown = 0;
+
+//random color
+function randomColor() {
+    //rgb value is 0-255 total 256... 
+    //Math.floor(Math.random() * (max-min+1)) + min;
+    var r = Math.floor(Math.random() * (255 - 0 + 1)) + 0;
+    var g = Math.floor(Math.random() * (255 - 0 + 1)) + 0;
+    var b = Math.floor(Math.random() * (255 - 0 + 1)) + 0;
+    var rgb = "rgb(" + r + "," + g + "," + b + ")";
+    return rgb;
+}
 
 // Draws a dot at a specific position on the supplied canvas name
 // Parameters are: A canvas context, the x position, the y position, the size of the dot
 function drawDot(ctx, x, y, size) {
     // Let's use black by setting RGB values to 0, and 255 alpha (completely opaque)
-    r = 0; g = 0; b = 0; a = 255;
+    //r = 0; g = 0; b = 0; a = 255;
 
     // Select a fill style
-    ctx.fillStyle = "rgba(" + r + "," + g + "," + b + "," + (a / 255) + ")";
+    ctx.fillStyle = rgb;//"rgba(" + r + "," + g + "," + b + "," + (a / 255) + ")";
 
     // Draw a filled circle
     ctx.beginPath();
@@ -129,6 +140,7 @@ function clearCanvas(canvas, ctx) {
 // Keep track of the mouse button being pressed and draw a dot at current location
 function sketchpad_mouseDown() {
     mouseDown = 1;
+    rgb = randomColor();
     drawDot(ctx, mouseX, mouseY, 12);
 }
 
@@ -167,7 +179,7 @@ function getMousePos(e) {
 function sketchpad_touchStart() {
     // Update the touch co-ordinates
     getTouchPos();
-
+    rgb = randomColor();
     drawDot(ctx, touchX, touchY, 12);
 
     // Prevents an additional mousedown event being triggered
